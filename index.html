@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Resmi & Gateway Login - SMK Prajnaparamita Malang</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        putihtulang: '#f8f7f4',
+                        cardlight: '#ffffff',
+                        borderlight: '#e2e8f0',
+                        obsidian: '#0f172a',
+                        magenta: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#d946ef', // Primary Vibrant Magenta
+                            700: '#c026d3',
+                            800: '#9d174d',
+                            glow: '#e0247a'
+                        }
+                    },
+                    boxShadow: {
+                        'magenta-glow': '0 0 25px -3px rgba(217, 70, 239, 0.35)',
+                        'magenta-subtle': '0 4px 14px 0px rgba(217, 70, 239, 0.18)',
+                        'soft': '0 2px 10px rgba(0, 0, 0, 0.03), 0 10px 25px rgba(0, 0, 0, 0.04)',
+                        'hover-card': '0 20px 30px -10px rgba(0, 0, 0, 0.08)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f7f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d946ef;
+        }
+        .bg-grid-pattern-light {
+            background-image: radial-gradient(rgba(217, 70, 239, 0.12) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 80% 20%, rgba(217, 70, 239, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(15, 23, 42, 0.05) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-putihtulang text-slate-800 font-sans min-h-screen flex flex-col antialiased bg-grid-pattern-light">
+
+    <!-- ================================================================= -->
+    <!-- LANDING PAGE VIEW (Shown when user is not logged in) -->
+    <!-- ================================================================= -->
+    <div id="landingView" class="min-h-screen flex flex-col justify-between">
+        <!-- Landing Header -->
+        <header class="sticky top-0 z-40 border-b border-slate-200/80 glass-panel-light shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToHero()">
+                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-magenta-700 via-magenta-600 to-pink-500 p-0.5 shadow-magenta-subtle flex items-center justify-center">
+                            <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
+                                <i class="fa-solid font-bold fa-graduation-cap text-magenta-400 text-xl"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-extrabold text-lg tracking-tight text-slate-900">SMK Prajnaparamita</span>
+                                <span class="px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-magenta-100 text-magenta-700 border border-magenta-300 rounded-full">Malang</span>
+                            </div>
+                            <p class="text-xs text-slate-500 font-medium">Sistem Informasi & Gateway Portal Utama</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <button onclick="scrollToFeatures()" class="hidden md:block text-xs font-semibold text-slate-600 hover:text-magenta-600 transition">Fitur Utama</button>
+                        <button onclick="scrollToRoles()" class="hidden md:block text-xs font-semibold text-slate-600 hover:text-magenta-600 transition">Akses Role</button>
+                        <button onclick="openLoginModal()" class="px-5 py-2.5 rounded-xl bg-magenta-600 hover:bg-magenta-700 text-white font-semibold text-xs shadow-magenta-subtle transition flex items-center space-x-2">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>Masuk Aplikasi</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow hero-gradient">
+            <!-- Hero Container -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-24">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-magenta-50 border border-magenta-200 text-magenta-700 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-magenta-600 animate-ping"></span>
+                            <span>Portal Akreditasi & Supervisi Digital 2026</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            Portal Resmi <br class="hidden sm:inline">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-magenta-700 to-magenta-600">Kepemimpinan Sekolah</span>
+                        </h1>
+
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+                            Selamat datang di aplikasi terpadu SMK Prajnaparamita Malang. Platform ini dirancang untuk integrasi direktori pengajar, publikasi filosofi edukasi, jadwal observasi kelas, dan pemantauan kinerja guru secara real-time.
+                        </p>
+
+                        <!-- Call To Action Buttons -->
+                        <div class="pt-3 flex flex-wrap justify-center lg:justify-start gap-4">
+                            <button onclick="openLoginModal()" class="px-7 py-3.5 rounded-2xl bg-magenta-600 hover:bg-magenta-700 text-white font-bold text-sm shadow-magenta-glow hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center space-x-3">
+                                <span>Masuk Aplikasi Utama</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="scrollToRoles()" class="px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-semibold text-sm shadow-soft transition flex items-center space-x-2">
+                                <i class="fa-solid fa-users text-magenta-600"></i>
+                                <span>Pilih Peran User</span>
+                            </button>
+                        </div>
+
+                        <!-- Quick Badges -->
+                        <div class="pt-6 border-t border-slate-200/80 flex flex-wrap justify-center lg:justify-start gap-6 text-xs text-slate-500 font-medium">
+                            <span class="flex items-center space-x-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> <span>Akses Multi-Role</span></span>
+                            <span class="flex items-center space-x-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> <span>Google Apps Script Sync</span></span>
+                            <span class="flex items-center space-x-1.5"><i class="fa-solid fa-circle-check text-emerald-500"></i> <span>Observasi Real-time</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-2xl space-y-6 relative overflow-hidden group hover:shadow-magenta-subtle transition duration-300">
+                            <div class="absolute -right-12 -top-12 w-48 h-48 bg-magenta-500/10 rounded-full blur-2xl"></div>
+                            
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-slate-900 text-magenta-400 flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm">Autentikasi Multi-User</h4>
+                                        <p class="text-[11px] text-slate-500">Akses Terenkripsi & Aman</p>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-[10px]">
+                                    System Ready
+                                </span>
+                            </div>
+
+                            <!-- Role Cards Preview -->
+                            <div class="space-y-3">
+                                <div onclick="quickLogin('kepsek')" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-magenta-400 hover:bg-magenta-50/50 transition cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-9 h-9 rounded-xl bg-magenta-600 text-white flex items-center justify-center text-xs font-bold">
+                                            <i class="fa-solid fa-user-tie"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-xs text-slate-900">Kepala Sekolah</div>
+                                            <div class="text-[10px] text-slate-500">Kontrol Penuh & Supervisi Master</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-semibold text-magenta-600">Klik Masuk &rarr;</span>
+                                </div>
+
+                                <div onclick="quickLogin('guru')" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-magenta-400 hover:bg-magenta-50/50 transition cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-9 h-9 rounded-xl bg-slate-800 text-magenta-400 flex items-center justify-center text-xs font-bold">
+                                            <i class="fa-solid fa-chalkboard-user"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-xs text-slate-900">Guru / Tenaga Pendidik</div>
+                                            <div class="text-[10px] text-slate-500">Input Portfolio & Filosofi</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-semibold text-magenta-600">Klik Masuk &rarr;</span>
+                                </div>
+
+                                <div onclick="quickLogin('kurikulum')" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-magenta-400 hover:bg-magenta-50/50 transition cursor-pointer flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-9 h-9 rounded-xl bg-slate-700 text-white flex items-center justify-center text-xs font-bold">
+                                            <i class="fa-solid fa-list-check"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-bold text-xs text-slate-900">Tim Kurikulum / Observator</div>
+                                            <div class="text-[10px] text-slate-500">Jadwal & Hasil Observasi</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-semibold text-magenta-600">Klik Masuk &rarr;</span>
+                                </div>
+                            </div>
+
+                            <p class="text-[11px] text-center text-slate-400 pt-1">
+                                <i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> Pilih salah satu kartu di atas untuk uji coba akses instan.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Roles Section -->
+            <section id="rolesSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200/80">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Akses Berdasarkan Peran User</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-2">Sistem menyediakan hak akses khusus sesuai wewenang untuk menjaga validitas data supervisi.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Kepsek -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-soft hover:shadow-hover-card transition duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl font-bold">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base">Kepala Sekolah</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Akses supervisi penuh, integrasi Google Apps Script, tambah/edit data pengajar, serta penentuan kebijakan sekolah.</p>
+                        <button onclick="quickLogin('kepsek')" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-magenta-600 text-white font-semibold text-xs transition">Login Kepsek</button>
+                    </div>
+
+                    <!-- Guru -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-soft hover:shadow-hover-card transition duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl font-bold">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base">Guru Pendidik</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Mendaftarkan profil, mencantumkan tautan website pribadi/portfolio, dan mempublikasikan filosofi pembelajaran.</p>
+                        <button onclick="quickLogin('guru')" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-magenta-600 text-white font-semibold text-xs transition">Login Guru</button>
+                    </div>
+
+                    <!-- Kurikulum -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-soft hover:shadow-hover-card transition duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl font-bold">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base">Tim Kurikulum</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Menjadwalkan observasi akademik, memperbarui instrumen supervisi, dan memantau perkembangan evaluasi.</p>
+                        <button onclick="quickLogin('kurikulum')" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-magenta-600 text-white font-semibold text-xs transition">Login Kurikulum</button>
+                    </div>
+
+                    <!-- Tamu -->
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-soft hover:shadow-hover-card transition duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl font-bold">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base">Tamu / Pengawas</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Melihat profil direktori guru SMK Prajnaparamita Malang dan filosofi mengajar dalam mode read-only.</p>
+                        <button onclick="quickLogin('tamu')" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-magenta-600 text-white font-semibold text-xs transition">Login Tamu</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Landing Footer -->
+        <footer class="border-t border-slate-200/80 glass-panel-light py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <div>
+                    <span class="font-bold text-slate-800">SMK Prajnaparamita Malang</span> © 2026 Portal Aplikasi Utama
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="openLoginModal()" class="hover:text-magenta-600">Masuk Aplikasi</button>
+                    <span>•</span>
+                    <span class="text-slate-400">Putih Tulang, Obsidian & Magenta Theme</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- ================================================================= -->
+    <!-- MAIN APPLICATION VIEW (Shown after login) -->
+    <!-- ================================================================= -->
+    <div id="appView" class="hidden min-h-screen flex flex-col">
+        
+        <!-- App Header / Navbar -->
+        <header class="sticky top-0 z-40 border-b border-slate-200/80 glass-panel-light shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Brand -->
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
+                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-magenta-700 via-magenta-600 to-pink-500 p-0.5 shadow-magenta-subtle flex items-center justify-center">
+                            <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center">
+                                <i class="fa-solid font-bold fa-graduation-cap text-magenta-400 text-xl"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-extrabold text-lg tracking-tight text-slate-900">SMK Prajnaparamita</span>
+                                <span class="px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-magenta-100 text-magenta-700 border border-magenta-300 rounded-full">Malang</span>
+                            </div>
+                            <p class="text-xs text-slate-500 font-medium">Portal Kepala Sekolah & Supervisi Digital</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Menu -->
+                    <nav class="hidden md:flex items-center space-x-1 bg-white/90 p-1.5 rounded-2xl border border-slate-200 shadow-sm">
+                        <button onclick="switchTab('beranda')" id="nav-beranda" class="nav-btn px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 flex items-center space-x-2 text-white bg-magenta-600 shadow-magenta-subtle">
+                            <i class="fa-solid fa-house text-xs"></i>
+                            <span>Beranda</span>
+                        </button>
+                        <button onclick="switchTab('profil')" id="nav-profil" class="nav-btn px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                            <i class="fa-solid fa-user-tie text-xs"></i>
+                            <span>Profil Kepsek</span>
+                        </button>
+                        <button onclick="switchTab('input')" id="nav-input" class="nav-btn px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                            <i class="fa-solid fa-user-plus text-xs"></i>
+                            <span>Input Guru</span>
+                        </button>
+                        <button onclick="switchTab('data')" id="nav-data" class="nav-btn px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                            <i class="fa-solid fa-address-book text-xs"></i>
+                            <span>Data Guru</span>
+                        </button>
+                        <button onclick="switchTab('observasi')" id="nav-observasi" class="nav-btn px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                            <i class="fa-solid fa-clipboard-check text-xs"></i>
+                            <span>Observasi Guru</span>
+                        </button>
+                    </nav>
+
+                    <!-- User Active Profile & Logout -->
+                    <div class="hidden lg:flex items-center space-x-3">
+                        <button onclick="openGasModal()" class="px-3.5 py-2 text-xs font-semibold rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-magenta-600 hover:border-magenta-300 transition shadow-sm flex items-center space-x-2">
+                            <span id="gasStatusDot" class="w-2 h-2 rounded-full bg-amber-400"></span>
+                            <i class="fa-solid fa-cloud text-magenta-600"></i>
+                            <span>Google Script</span>
+                        </button>
+
+                        <div class="h-6 w-px bg-slate-200"></div>
+
+                        <!-- Active User Pill -->
+                        <div class="flex items-center space-x-2.5 bg-slate-100 pl-3 pr-2 py-1.5 rounded-2xl border border-slate-200">
+                            <div class="text-right">
+                                <div id="activeUserName" class="text-xs font-bold text-slate-900 leading-tight">Nama User</div>
+                                <div id="activeUserRole" class="text-[10px] font-bold text-magenta-600 uppercase">Role</div>
+                            </div>
+                            <button onclick="handleLogout()" title="Keluar / Logout" class="w-8 h-8 rounded-xl bg-rose-100 hover:bg-rose-600 hover:text-white text-rose-600 transition flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-power-off"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center space-x-2">
+                        <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600">
+                            <i class="fa-solid fa-power-off"></i>
+                        </button>
+                        <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 focus:outline-none">
+                            <i class="fa-solid fa-bars text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Drawer Menu -->
+            <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2">
+                <div class="p-3 mb-2 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <div id="mobileUserName" class="text-xs font-bold text-slate-900">Nama User</div>
+                        <div id="mobileUserRole" class="text-[10px] text-magenta-600 font-bold">Role</div>
+                    </div>
+                    <button onclick="handleLogout()" class="text-xs text-rose-600 font-bold flex items-center space-x-1">
+                        <i class="fa-solid fa-power-off"></i>
+                        <span>Keluar</span>
+                    </button>
+                </div>
+
+                <button onclick="switchTab('beranda'); toggleMobileMenu()" class="w-full px-4 py-3 text-left font-medium rounded-xl text-white bg-magenta-600 flex items-center space-x-3">
+                    <i class="fa-solid fa-house w-5 text-center"></i>
+                    <span>Beranda</span>
+                </button>
+                <button onclick="switchTab('profil'); toggleMobileMenu()" class="w-full px-4 py-3 text-left font-medium rounded-xl text-slate-700 hover:bg-slate-100 flex items-center space-x-3">
+                    <i class="fa-solid fa-user-tie w-5 text-center"></i>
+                    <span>Profil Kepala Sekolah</span>
+                </button>
+                <button onclick="switchTab('input'); toggleMobileMenu()" class="w-full px-4 py-3 text-left font-medium rounded-xl text-slate-700 hover:bg-slate-100 flex items-center space-x-3">
+                    <i class="fa-solid fa-user-plus w-5 text-center"></i>
+                    <span>Input Data Guru</span>
+                </button>
+                <button onclick="switchTab('data'); toggleMobileMenu()" class="w-full px-4 py-3 text-left font-medium rounded-xl text-slate-700 hover:bg-slate-100 flex items-center space-x-3">
+                    <i class="fa-solid fa-address-book w-5 text-center"></i>
+                    <span>Data Guru</span>
+                </button>
+                <button onclick="switchTab('observasi'); toggleMobileMenu()" class="w-full px-4 py-3 text-left font-medium rounded-xl text-slate-700 hover:bg-slate-100 flex items-center space-x-3">
+                    <i class="fa-solid fa-clipboard-check w-5 text-center"></i>
+                    <span>Observasi Guru</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Dynamic Container -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- Toast Container -->
+            <div id="toast" class="hidden fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-2xl bg-white border-l-4 border-magenta-600 shadow-2xl transition-all duration-300 transform translate-y-0">
+                <div class="flex items-start space-x-3">
+                    <div id="toastIcon" class="text-magenta-600 text-lg pt-0.5"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="flex-grow">
+                        <h4 id="toastTitle" class="text-sm font-bold text-slate-900">Notifikasi</h4>
+                        <p id="toastMessage" class="text-xs text-slate-600 mt-0.5">Pesan sistem dimuat.</p>
+                    </div>
+                    <button onclick="hideToast()" class="text-slate-400 hover:text-slate-700 text-xs"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 1: BERANDA -->
+            <!-- ========================================== -->
+            <section id="tab-beranda" class="tab-content space-y-8">
+                <!-- Hero Banner -->
+                <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-8 md:p-12 shadow-xl border border-slate-800">
+                    <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-magenta-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-8 space-y-5">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-magenta-500/10 border border-magenta-500/30 text-magenta-300 text-xs font-semibold uppercase tracking-wider">
+                                <span class="w-2 h-2 rounded-full bg-magenta-400 animate-pulse"></span>
+                                <span>Kepemimpinan & Supervisi Pendidikan Modern</span>
+                            </div>
+                            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white">
+                                Selamat Datang di Portal Resmi <br>
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-magenta-400 to-magenta-500">Kepala Sekolah SMK Prajnaparamita</span>
+                            </h1>
+                            <p class="text-slate-300 text-sm sm:text-base max-w-2xl font-normal leading-relaxed">
+                                Mewujudkan tata kelola pendidik berintegritas, mendorong filosofi pengajar berpusat pada siswa, dan meningkatkan kualitas supervisi akademik secara terpadu & digital.
+                            </p>
+                            
+                            <div class="pt-2 flex flex-wrap gap-3">
+                                <button onclick="switchTab('input')" class="px-6 py-3 rounded-xl bg-magenta-600 hover:bg-magenta-500 text-white font-semibold text-sm transition shadow-magenta-glow flex items-center space-x-2">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    <span>Input Guru Baru</span>
+                                </button>
+                                <button onclick="switchTab('observasi')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm transition flex items-center space-x-2">
+                                    <i class="fa-solid fa-clipboard-check text-magenta-400"></i>
+                                    <span>Mulai Observasi Guru</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Principal Hero Card -->
+                        <div class="lg:col-span-4">
+                            <div class="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700/80 text-center relative group shadow-lg">
+                                <div class="relative w-28 h-28 mx-auto mb-4">
+                                    <div class="w-full h-full rounded-2xl bg-gradient-to-tr from-magenta-600 to-pink-400 p-1 shadow-magenta-glow">
+                                        <div class="w-full h-full rounded-[14px] bg-slate-900 flex items-center justify-center overflow-hidden">
+                                            <i class="fa-solid fa-user-tie text-5xl text-slate-200"></i>
+                                        </div>
+                                    </div>
+                                    <span class="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center text-[10px] text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-white text-lg">Kepala Sekolah</h3>
+                                <p class="text-xs text-magenta-400 font-medium">SMK Prajnaparamita Malang</p>
+                                <div class="mt-4 pt-4 border-t border-slate-700/80 flex justify-around text-center">
+                                    <div>
+                                        <div class="text-lg font-bold text-white" id="stat-total-guru">0</div>
+                                        <div class="text-[11px] text-slate-400">Guru Terdata</div>
+                                    </div>
+                                    <div class="border-r border-slate-700"></div>
+                                    <div>
+                                        <div class="text-lg font-bold text-white" id="stat-observasi-selesai">0</div>
+                                        <div class="text-[11px] text-slate-400">Observasi Aktif</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-5 flex items-center space-x-4 shadow-soft">
+                        <div class="w-12 h-12 rounded-xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl">
+                            <i class="fa-solid fa-users-gear"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Pengajar Terdaftar</p>
+                            <h4 class="text-2xl font-bold text-slate-900 mt-0.5" id="metric-guru">0</h4>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-5 flex items-center space-x-4 shadow-soft">
+                        <div class="w-12 h-12 rounded-xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Website Portfolio Guru</p>
+                            <h4 class="text-2xl font-bold text-slate-900 mt-0.5" id="metric-web">0</h4>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-5 flex items-center space-x-4 shadow-soft">
+                        <div class="w-12 h-12 rounded-xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Supervisi Observasi</p>
+                            <h4 class="text-2xl font-bold text-slate-900 mt-0.5" id="metric-observasi">0</h4>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-5 flex items-center space-x-4 shadow-soft">
+                        <div class="w-12 h-12 rounded-xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 text-xl">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Status Apps Script</p>
+                            <h4 class="text-xs font-semibold text-amber-600 mt-1 flex items-center" id="metric-gas">
+                                <span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span> Lokal (Offline)
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Feature Highlights -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white border border-slate-200/90 rounded-2xl p-6 shadow-soft">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-4">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-quote-left text-magenta-600 text-xl"></i>
+                                <h3 class="text-base font-bold text-slate-900">Prinsip & Pesan Kepemimpinan</h3>
+                            </div>
+                            <span class="text-xs text-slate-500">SMK Prajnaparamita Malang</span>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed italic">
+                            "Pendidikan kejuruan bukan sekadar mentransfer keahlian teknis, melainkan membentuk karakter unggul, filosofi belajar mandiri, serta kesiapan bersaing secara global. Setiap guru adalah arsitek masa depan para siswa kami."
+                        </p>
+                        <div class="mt-6 flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-500">
+                            <span>Fokus Utama: Transformasi Pembelajaran Digital & Industri</span>
+                            <button onclick="switchTab('profil')" class="text-magenta-600 hover:text-magenta-700 font-semibold flex items-center space-x-1">
+                                <span>Baca Selengkapnya</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-soft">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-4">
+                            <h3 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-calendar-day text-magenta-600"></i>
+                                <span>Observasi Terkini</span>
+                            </h3>
+                            <button onclick="switchTab('observasi')" class="text-xs text-magenta-600 hover:underline font-semibold">Semua</button>
+                        </div>
+                        <div id="home-observasi-list" class="space-y-3">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 2: PROFIL KEPALA SEKOLAH -->
+            <!-- ========================================== -->
+            <section id="tab-profil" class="tab-content hidden space-y-8">
+                <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-soft">
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="w-full md:w-64 flex-shrink-0 text-center">
+                            <div class="p-1 rounded-2xl bg-gradient-to-b from-magenta-500 via-magenta-600 to-slate-200 shadow-magenta-subtle">
+                                <div class="bg-slate-900 rounded-xl p-8 flex flex-col items-center justify-center">
+                                    <div class="w-32 h-32 rounded-full bg-magenta-500/20 border-2 border-magenta-400/50 flex items-center justify-center mb-4">
+                                        <i class="fa-solid fa-user-tie text-6xl text-magenta-400"></i>
+                                    </div>
+                                    <h3 class="font-bold text-white text-base">Kepala Sekolah</h3>
+                                    <p class="text-xs text-slate-300 mt-1">SMK Prajnaparamita Malang</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-200 text-left space-y-2">
+                                <div class="text-[11px] text-slate-500">NIP / Identitas Terdaftar</div>
+                                <div class="text-xs font-mono font-bold text-slate-800">19780412 200501 1 003</div>
+                                <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-200">Status Supervisi</div>
+                                <div class="text-xs font-semibold text-emerald-600 flex items-center">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span> Aktif & Terverifikasi
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow space-y-6">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-wider text-magenta-600">Profil Kepemimpinan</span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Kepala Sekolah SMK Prajnaparamita Malang</h2>
+                                <p class="text-slate-600 text-sm leading-relaxed mt-3">
+                                    Berkomitmen memimpin sekolah vokasi berstandar industri dengan mengintegrasikan nilai akademis, kecakapan praktis, teknologi informasi, dan karakter luhur. Supervisi pengajar dilakukan secara transparan untuk memastikan setiap guru memiliki filosofi mengajar yang responsif terhadap perkembangan zaman.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                    <div class="flex items-center space-x-2 text-magenta-600 font-bold text-sm mb-2">
+                                        <i class="fa-solid fa-eye"></i>
+                                        <span>Visi Kepemimpinan</span>
+                                    </div>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        Terwujudnya SMK Prajnaparamita Malang sebagai pusat pendidikan vokasi unggulan yang mencetak lulusan kompeten, berdaya saing global, serta berkarakter mulia.
+                                    </p>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                    <div class="flex items-center space-x-2 text-magenta-600 font-bold text-sm mb-2">
+                                        <i class="fa-solid fa-bullseye"></i>
+                                        <span>Misi Strategis</span>
+                                    </div>
+                                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                        <li>Penguatan kualifikasi & filosofi mengajar guru.</li>
+                                        <li>Supervisi & observasi kelas berkelanjutan.</li>
+                                        <li>Kemitraan luas dengan dunia usaha & industri.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: INPUT GURU -->
+            <!-- ========================================== -->
+            <section id="tab-input" class="tab-content hidden space-y-6">
+                <div class="max-w-3xl mx-auto bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-soft">
+                    <div class="border-b border-slate-200 pb-5 mb-6 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-user-plus text-magenta-600"></i>
+                                <span>Formulir Input Data Guru Baru</span>
+                            </h2>
+                            <p class="text-xs text-slate-500 mt-1">Tambahkan data guru lengkap beserta link website dan filosofi mengajar.</p>
+                        </div>
+                        <span class="text-xs px-2.5 py-1 rounded-lg bg-magenta-50 border border-magenta-200 text-magenta-700 font-semibold">
+                            SMK Prajnaparamita
+                        </span>
+                    </div>
+
+                    <form id="formInputGuru" onsubmit="handleFormGuruSubmit(event)" class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                Nama Guru Lengkap <span class="text-magenta-600">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+                                <input type="text" id="inputNamaGuru" required placeholder="Contoh: Dra. Sri Wahyuni, M.Pd." class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:border-magenta-600 transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                Link Website / Portfolio Guru <span class="text-magenta-600">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-link"></i>
+                                </span>
+                                <input type="url" id="inputWebsiteGuru" required placeholder="https://sriwahyuni.prajnaparamita.sch.id" class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:border-magenta-600 transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                Kompetensi Keahlian / Mata Pelajaran <span class="text-magenta-600">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-book-bookmark"></i>
+                                </span>
+                                <input type="text" id="inputKompetensi" required placeholder="Contoh: Rekayasa Perangkat Lunak / Pemrograman Web" class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:border-magenta-600 transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                Filosofi Mengajar Guru <span class="text-magenta-600">*</span>
+                            </label>
+                            <textarea id="inputFilosofi" rows="4" required placeholder="Jelaskan pandangan, metode, dan prinsip mengajar guru ini..." class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:border-magenta-600 transition"></textarea>
+                        </div>
+
+                        <div class="pt-4 flex items-center justify-end space-x-3 border-t border-slate-200">
+                            <button type="reset" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-medium text-sm transition">
+                                Reset Form
+                            </button>
+                            <button type="submit" id="btnSubmitGuru" class="px-6 py-2.5 rounded-xl bg-magenta-600 hover:bg-magenta-700 text-white font-semibold text-sm transition shadow-magenta-subtle flex items-center space-x-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Simpan Data Guru</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 4: DATA GURU -->
+            <!-- ========================================== -->
+            <section id="tab-data" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200/90 p-5 rounded-2xl shadow-soft">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                            <i class="fa-solid fa-address-book text-magenta-600"></i>
+                            <span>Daftar Data Guru SMK Prajnaparamita Malang</span>
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Direktori pengajar, link website pribadi, filosofi edukasi, dan aksi edit data.</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row w-full md:w-auto gap-3">
+                        <div class="relative flex-grow sm:w-64">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-xs">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </span>
+                            <input type="text" id="searchGuru" oninput="renderDataGuru()" placeholder="Cari nama / mapel..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-magenta-600">
+                        </div>
+                        <button onclick="switchTab('input')" class="px-4 py-2 rounded-xl bg-magenta-600 hover:bg-magenta-700 text-white text-xs font-semibold flex items-center justify-center space-x-2 shadow-magenta-subtle">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Tambah Guru</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="dataGuruContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Rendered dynamically -->
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 5: OBSERVASI GURU -->
+            <!-- ========================================== -->
+            <section id="tab-observasi" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200/90 p-6 rounded-3xl shadow-soft">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded-full bg-magenta-50 border border-magenta-200 text-magenta-700 text-[11px] font-semibold mb-2">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                            <span>Supervisi Akademik Kepsek</span>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900">Observasi & Penilaian Kinerja Guru</h2>
+                        <p class="text-xs text-slate-500 mt-1">Pantau link website observasi, jadwal supervisi, dan rubrik evaluasi guru.</p>
+                    </div>
+
+                    <button onclick="openTambahObservasiModal()" class="px-5 py-2.5 rounded-xl bg-magenta-600 hover:bg-magenta-700 text-white font-semibold text-xs transition shadow-magenta-subtle flex items-center space-x-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Jadwalkan Observasi Baru</span>
+                    </button>
+                </div>
+
+                <div class="bg-white border border-slate-200/90 rounded-3xl overflow-hidden shadow-soft">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="py-4 px-6">Guru & Mapel</th>
+                                    <th class="py-4 px-6">Tanggal Observasi</th>
+                                    <th class="py-4 px-6">Link Website Observasi</th>
+                                    <th class="py-4 px-6">Status Supervisi</th>
+                                    <th class="py-4 px-6 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="observasiTableBody" class="divide-y divide-slate-200 text-xs">
+                                <!-- Rendered dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- App Footer -->
+        <footer class="mt-auto border-t border-slate-200/80 glass-panel-light py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <div class="flex items-center space-x-2">
+                    <span class="font-bold text-slate-800">SMK Prajnaparamita Malang</span>
+                    <span>•</span>
+                    <span>Portal Kepala Sekolah © 2026</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="hover:text-magenta-600 transition cursor-pointer" onclick="openGasModal()">Pengaturan Google Script</span>
+                    <span>•</span>
+                    <button onclick="handleLogout()" class="text-rose-600 font-semibold hover:underline">Logout</button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MODALS SECTION -->
+    <!-- ========================================== -->
+
+    <!-- MODAL: LOGIN MULTI-USER -->
+    <div id="loginModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white border border-slate-200 w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
+            <button onclick="closeLoginModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-magenta-600 to-pink-500 p-0.5 mx-auto mb-3 shadow-magenta-subtle flex items-center justify-center">
+                    <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-key text-magenta-400 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-900">Masuk Portal Aplikasi</h3>
+                <p class="text-xs text-slate-500">Pilih akun peran user untuk melanjutkan ke dashboard.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form onsubmit="handleFormLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Peran / Akses</label>
+                    <select id="loginRole" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold focus:outline-none focus:border-magenta-600">
+                        <option value="kepsek">👑 Kepala Sekolah (Full Control)</option>
+                        <option value="guru">👨‍🏫 Guru / Pendidik (Portfolio & Filosofi)</option>
+                        <option value="kurikulum">📋 Tim Kurikulum / Observator</option>
+                        <option value="tamu">👁️ Tamu / Pengawas (Read-Only)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username / NIP</label>
+                    <input type="text" id="loginUsername" required placeholder="Masukkan NIP atau Username..." value="kepala.sekolah" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kata Sandi</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••" value="prajna2026" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-magenta-600 hover:bg-magenta-700 text-white font-bold text-xs transition shadow-magenta-subtle flex items-center justify-center space-x-2">
+                        <span>Masuk ke Dashboard</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Quick Demo Credentials Shortcuts -->
+            <div class="pt-3 border-t border-slate-100">
+                <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center mb-2">Akses Cepat Uji Coba:</div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="quickLogin('kepsek')" class="px-3 py-2 rounded-xl bg-slate-50 hover:bg-magenta-50 border border-slate-200 text-[11px] font-semibold text-slate-700 text-left flex items-center space-x-1.5">
+                        <i class="fa-solid fa-user-tie text-magenta-600"></i>
+                        <span>As Kepsek</span>
+                    </button>
+                    <button onclick="quickLogin('guru')" class="px-3 py-2 rounded-xl bg-slate-50 hover:bg-magenta-50 border border-slate-200 text-[11px] font-semibold text-slate-700 text-left flex items-center space-x-1.5">
+                        <i class="fa-solid fa-chalkboard-user text-magenta-600"></i>
+                        <span>As Guru</span>
+                    </button>
+                    <button onclick="quickLogin('kurikulum')" class="px-3 py-2 rounded-xl bg-slate-50 hover:bg-magenta-50 border border-slate-200 text-[11px] font-semibold text-slate-700 text-left flex items-center space-x-1.5">
+                        <i class="fa-solid fa-clipboard-check text-magenta-600"></i>
+                        <span>As Kurikulum</span>
+                    </button>
+                    <button onclick="quickLogin('tamu')" class="px-3 py-2 rounded-xl bg-slate-50 hover:bg-magenta-50 border border-slate-200 text-[11px] font-semibold text-slate-700 text-left flex items-center space-x-1.5">
+                        <i class="fa-solid fa-eye text-magenta-600"></i>
+                        <span>As Tamu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: GOOGLE APPS SCRIPT CONFIGURATION -->
+    <div id="gasModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
+            <button onclick="closeGasModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <div>
+                <div class="w-10 h-10 rounded-xl bg-magenta-50 border border-magenta-200 flex items-center justify-center text-magenta-600 mb-3">
+                    <i class="fa-solid fa-cloud text-lg"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Integrasi Google Apps Script (GAS)</h3>
+                <p class="text-xs text-slate-500 mt-1">Hubungkan website Kepala Sekolah ini ke Google Sheets spreadsheet Anda untuk penyimpanan data otomatis.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        URL Web App Google Apps Script
+                    </label>
+                    <input type="url" id="gasUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-magenta-600 font-mono">
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-magenta-700">Kode Script Google Sheets (Code.gs)</span>
+                        <button onclick="copyGasCode()" class="text-[11px] text-slate-700 hover:text-magenta-700 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
+                            <i class="fa-solid fa-copy mr-1"></i> Salin Kode
+                        </button>
+                    </div>
+                    <pre class="text-[10px] font-mono text-slate-300 overflow-x-auto p-3 bg-slate-900 rounded-xl max-h-36">
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  if (data.action === 'addGuru') {
+    sheet.appendRow([new Date(), data.nama, data.website, data.kompetensi, data.filosofi]);
+    return ContentService.createTextOutput(JSON.stringify({result: 'success'})).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+function doGet(e) {
+  return ContentService.createTextOutput("GAS Active");
+}</pre>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="clearGasUrl()" class="text-xs text-rose-600 hover:underline font-medium">Hapus URL</button>
+                <div class="space-x-2">
+                    <button onclick="closeGasModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-medium">Batal</button>
+                    <button onclick="saveGasUrl()" class="px-5 py-2 rounded-xl bg-magenta-600 text-white font-semibold text-xs shadow-magenta-subtle">Simpan Connection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: EDIT DATA GURU -->
+    <div id="editGuruModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white border border-slate-200 w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl relative">
+            <button onclick="closeEditGuruModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                <i class="fa-solid fa-pen-to-square text-magenta-600"></i>
+                <span>Edit Data Guru</span>
+            </h3>
+
+            <form id="formEditGuru" onsubmit="handleEditGuruSubmit(event)" class="space-y-4">
+                <input type="hidden" id="editGuruId">
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Guru Lengkap <span class="text-magenta-600">*</span></label>
+                    <input type="text" id="editNamaGuru" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Link Website / Portfolio <span class="text-magenta-600">*</span></label>
+                    <input type="url" id="editWebsiteGuru" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kompetensi Keahlian / Mapel <span class="text-magenta-600">*</span></label>
+                    <input type="text" id="editKompetensi" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Filosofi Mengajar <span class="text-magenta-600">*</span></label>
+                    <textarea id="editFilosofi" rows="3" required class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600"></textarea>
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-2 border-t border-slate-100">
+                    <button type="button" onclick="closeEditGuruModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-medium">Batal</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-magenta-600 hover:bg-magenta-700 text-white font-semibold text-xs shadow-magenta-subtle">Update Data Guru</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD / EDIT OBSERVASI -->
+    <div id="observasiModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white border border-slate-200 w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl relative">
+            <button onclick="closeObservasiModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                <i class="fa-solid fa-clipboard-list text-magenta-600"></i>
+                <span>Jadwalkan Observasi Guru</span>
+            </h3>
+
+            <form id="formObservasi" onsubmit="handleObservasiSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Guru <span class="text-magenta-600">*</span></label>
+                    <select id="obsNamaGuru" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tanggal Observasi <span class="text-magenta-600">*</span></label>
+                    <input type="date" id="obsTanggal" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Link Website Observasi / Form Evaluasi <span class="text-magenta-600">*</span></label>
+                    <input type="url" id="obsLinkWeb" required placeholder="https://forms.google.com/... atau link website instrumen observasi" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Status Observasi</label>
+                    <select id="obsStatus" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-magenta-600">
+                        <option value="Terjadwal">Terjadwal</option>
+                        <option value="Dalam Proses">Dalam Proses</option>
+                        <option value="Selesai">Selesai</option>
+                    </select>
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-2 border-t border-slate-100">
+                    <button type="button" onclick="closeObservasiModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-medium">Batal</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-magenta-600 text-white font-semibold text-xs shadow-magenta-subtle">Simpan Jadwal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: DETAIL FILOSOFI MENGAJAR -->
+    <div id="filosofiModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white border border-slate-200 w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl relative">
+            <button onclick="closeFilosofiModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+            <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                <div class="w-10 h-10 rounded-xl bg-magenta-50 text-magenta-600 border border-magenta-200 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                    <h3 id="filosofiModalGuru" class="text-base font-bold text-slate-900">Nama Guru</h3>
+                    <p id="filosofiModalMapel" class="text-xs text-magenta-600 font-semibold">Kompetensi / Mapel</p>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Filosofi Mengajar:</h4>
+                <p id="filosofiModalText" class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-200 italic">
+                    "Filosofi..."
+                </p>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeFilosofiModal()" class="px-5 py-2 rounded-xl bg-magenta-600 text-white text-xs font-medium shadow-magenta-subtle">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- APPLICATION JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+
+        // User Personas Config
+        const userRolesConfig = {
+            kepsek: {
+                name: 'Kepala Sekolah',
+                roleLabel: 'Kepala Sekolah',
+                badge: 'Full Control',
+                allowedTabs: ['beranda', 'profil', 'input', 'data', 'observasi']
+            },
+            guru: {
+                name: 'Siti Nurhaliza, M.Kom',
+                roleLabel: 'Guru / Pendidik',
+                badge: 'Guru Akses',
+                allowedTabs: ['beranda', 'input', 'data']
+            },
+            kurikulum: {
+                name: 'Tim Kurikulum Vokasi',
+                roleLabel: 'Kurikulum',
+                badge: 'Observator',
+                allowedTabs: ['beranda', 'data', 'observasi']
+            },
+            tamu: {
+                name: 'Tamu / Pengawas',
+                roleLabel: 'Pengawas External',
+                badge: 'Read-Only',
+                allowedTabs: ['beranda', 'data']
+            }
+        };
+
+        // Initial Sample Data
+        const initialGuruData = [
+            {
+                id: '1',
+                nama: 'Drs. Ahmad Subagyo, M.Pd.',
+                website: 'https://ahmadsubagyo.prajnaparamita.sch.id',
+                kompetensi: 'Rekayasa Perangkat Lunak & AI',
+                filosofi: 'Pembelajaran vokasi berbasis kecerdasan buatan dan praktek langsung berstandar industri modern untuk membentuk keahlian mandiri.'
+            },
+            {
+                id: '2',
+                nama: 'Siti Nurhaliza, S.T., M.Kom.',
+                website: 'https://sitinurhaliza.dev',
+                kompetensi: 'Teknik Jaringan Komputer & Telekomunikasi',
+                filosofi: 'Mengutamakan problem-solving dunia nyata melalui simulasi jaringan terdistribusi dan etika keamanan siber.'
+            },
+            {
+                id: '3',
+                nama: 'Bambang Triyono, S.Pd.',
+                website: 'https://bambangprofesional.com',
+                kompetensi: 'Desain Komunikasi Visual (DKV)',
+                filosofi: 'Mendorong kreativitas tanpa batas dengan memadukan estetika visual, teknologi digital, dan kepuasan klien industri.'
+            }
+        ];
+
+        const initialObservasiData = [
+            {
+                id: 'obs-1',
+                guruNama: 'Drs. Ahmad Subagyo, M.Pd.',
+                tanggal: '2026-08-10',
+                linkWeb: 'https://ahmadsubagyo.prajnaparamita.sch.id/observasi-rpp',
+                status: 'Selesai'
+            },
+            {
+                id: 'obs-2',
+                guruNama: 'Siti Nurhaliza, S.T., M.Kom.',
+                tanggal: '2026-08-15',
+                linkWeb: 'https://sitinurhaliza.dev/supervisi-2026',
+                status: 'Terjadwal'
+            }
+        ];
+
+        // Global State Store
+        let currentUser = JSON.parse(localStorage.getItem('smk_prajna_user')) || null;
+        let dataGuru = JSON.parse(localStorage.getItem('smk_prajna_guru')) || initialGuruData;
+        let dataObservasi = JSON.parse(localStorage.getItem('smk_prajna_observasi')) || initialObservasiData;
+        let gasUrl = localStorage.getItem('smk_prajna_gas_url') || '';
+
+
+        // Smooth Scroll Helper
+        function scrollToRoles() {
+            document.getElementById('rolesSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        function scrollToHero() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Login Modal Controls
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        // Quick Login Shortcut
+        function quickLogin(roleKey) {
+            const roleObj = userRolesConfig[roleKey] || userRolesConfig.kepsek;
+            loginUserSession({
+                role: roleKey,
+                name: roleObj.name,
+                label: roleObj.roleLabel
+            });
+            closeLoginModal();
+        }
+
+        // Form Login Submit
+        function handleFormLoginSubmit(e) {
+            e.preventDefault();
+            const roleKey = document.getElementById('loginRole').value;
+            const roleObj = userRolesConfig[roleKey];
+
+            loginUserSession({
+                role: roleKey,
+                name: roleObj.name,
+                label: roleObj.roleLabel
+            });
+            closeLoginModal();
+        }
+
+        // Process User Login
+        function loginUserSession(userData) {
+            currentUser = userData;
+            localStorage.setItem('smk_prajna_user', JSON.stringify(currentUser));
+            showToast('Login Berhasil!', `Selamat datang, ${currentUser.name} (${currentUser.label}).`);
+            renderAppView();
+        }
+
+        // Logout
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('smk_prajna_user');
+            renderAppView();
+            showToast('Sudah Logout', 'Anda telah keluar ke landing page utama.');
+        }
+
+
+        // Render App View or Landing View based on authentication
+        function renderAppView() {
+            const landingView = document.getElementById('landingView');
+            const appView = document.getElementById('appView');
+
+            if (currentUser) {
+                landingView.classList.add('hidden');
+                appView.classList.remove('hidden');
+
+                // Update Header User Info
+                document.getElementById('activeUserName').innerText = currentUser.name;
+                document.getElementById('activeUserRole').innerText = currentUser.label;
+                document.getElementById('mobileUserName').innerText = currentUser.name;
+                document.getElementById('mobileUserRole').innerText = currentUser.label;
+
+                // Adjust Navigation Permissions according to Role
+                applyRolePermissions();
+
+                // Load initial dashboard data
+                updateMetrics();
+                renderHomeObservasi();
+                switchTab('beranda');
+            } else {
+                appView.classList.add('hidden');
+                landingView.classList.remove('hidden');
+            }
+        }
+
+        // Apply Tab Visibility based on Current Role
+        function applyRolePermissions() {
+            if (!currentUser) return;
+            const allowed = userRolesConfig[currentUser.role]?.allowedTabs || ['beranda', 'data'];
+
+            const navInput = document.getElementById('nav-input');
+            const navProfil = document.getElementById('nav-profil');
+            const navObservasi = document.getElementById('nav-observasi');
+
+            if (navInput) navInput.style.display = allowed.includes('input') ? 'flex' : 'none';
+            if (navProfil) navProfil.style.display = allowed.includes('profil') ? 'flex' : 'none';
+            if (navObservasi) navObservasi.style.display = allowed.includes('observasi') ? 'flex' : 'none';
+        }
+
+        // Navigation Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-magenta-600', 'text-white', 'shadow-magenta-subtle');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if(activeTab) activeTab.classList.remove('hidden');
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeNav) {
+                activeNav.classList.add('bg-magenta-600', 'text-white', 'shadow-magenta-subtle');
+                activeNav.classList.remove('text-slate-600');
+            }
+
+            if(tabId === 'data') renderDataGuru();
+            if(tabId === 'observasi') renderObservasi();
+            if(tabId === 'beranda') renderHomeObservasi();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+
+        // Save State
+        function saveData() {
+            localStorage.setItem('smk_prajna_guru', JSON.stringify(dataGuru));
+            localStorage.setItem('smk_prajna_observasi', JSON.stringify(dataObservasi));
+            updateMetrics();
+        }
+
+        // Submit Form Input Guru
+        async function handleFormGuruSubmit(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('inputNamaGuru').value.trim();
+            const website = document.getElementById('inputWebsiteGuru').value.trim();
+            const kompetensi = document.getElementById('inputKompetensi').value.trim();
+            const filosofi = document.getElementById('inputFilosofi').value.trim();
+
+            const newGuru = {
+                id: Date.now().toString(),
+                nama,
+                website,
+                kompetensi,
+                filosofi
+            };
+
+            dataGuru.unshift(newGuru);
+            saveData();
+
+            if (gasUrl) {
+                showToast('Mengirim ke Google Script...', 'Proses sinkronisasi data ke Google Sheets.', 'info');
+                try {
+                    await fetch(gasUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'addGuru',
+                            nama,
+                            website,
+                            kompetensi,
+                            filosofi
+                        })
+                    });
+                    showToast('Berhasil Disimpan!', 'Data guru disimpan secara lokal & terkirim ke Google Sheets.');
+                } catch (err) {
+                    console.error(err);
+                    showToast('Simpan Lokal Berhasil', 'Penyimpanan lokal berhasil, namun gagal terhubung ke GAS.', 'warning');
+                }
+            } else {
+                showToast('Berhasil Disimpan!', 'Data guru telah berhasil ditambahkan ke database sistem.');
+            }
+
+            document.getElementById('formInputGuru').reset();
+            switchTab('data');
+        }
+
+
+        // Render Data Guru Cards
+        function renderDataGuru() {
+            const container = document.getElementById('dataGuruContainer');
+            const search = document.getElementById('searchGuru').value.toLowerCase();
+
+            const filtered = dataGuru.filter(g => 
+                g.nama.toLowerCase().includes(search) || 
+                g.kompetensi.toLowerCase().includes(search)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 border border-dashed border-slate-300 rounded-3xl bg-white shadow-soft">
+                        <i class="fa-solid fa-folder-open text-3xl text-slate-400 mb-2"></i>
+                        <p class="text-sm font-medium text-slate-500">Tidak ada data guru yang sesuai.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const canEdit = currentUser && (currentUser.role === 'kepsek' || currentUser.role === 'guru');
+
+            container.innerHTML = filtered.map(guru => `
+                <div class="bg-white border border-slate-200/90 hover:border-magenta-500/50 rounded-3xl p-6 flex flex-col justify-between transition duration-200 group shadow-soft hover:shadow-md">
+                    <div class="space-y-4">
+                        <div class="flex items-start justify-between">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-magenta-600 to-pink-500 p-0.5 flex items-center justify-center">
+                                <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
+                                    <i class="fa-solid fa-user text-magenta-400 text-lg"></i>
+                                </div>
+                            </div>
+                            
+                            ${canEdit ? `
+                            <div class="flex items-center space-x-1">
+                                <button onclick="openEditGuruModal('${guru.id}')" title="Edit Data Guru" class="text-slate-400 hover:text-magenta-600 text-xs p-1.5 rounded-lg hover:bg-magenta-50 transition">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button onclick="deleteGuru('${guru.id}')" title="Hapus Guru" class="text-slate-400 hover:text-rose-600 text-xs p-1.5 rounded-lg hover:bg-rose-50 transition">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>` : ''}
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base leading-snug group-hover:text-magenta-700 transition">${guru.nama}</h3>
+                            <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-magenta-50 border border-magenta-200 text-magenta-700 text-[11px] font-semibold">
+                                ${guru.kompetensi}
+                            </span>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                            <p class="text-[11px] text-slate-600 line-clamp-2 italic">
+                                "${guru.filosofi}"
+                            </p>
+                            <button onclick="openFilosofiModal('${guru.nama}', '${guru.kompetensi}', \`${guru.filosofi.replace(/`/g, '')}\`)" class="text-[11px] text-magenta-600 hover:underline font-semibold mt-1 inline-block">
+                                Selengkapnya
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                        <a href="${guru.website}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-slate-700 hover:text-magenta-600 flex items-center space-x-1.5 transition">
+                            <i class="fa-solid fa-globe text-magenta-600"></i>
+                            <span class="truncate max-w-[140px]">Website Guru</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i>
+                        </a>
+                        <button onclick="quickScheduleObservasi('${guru.nama}')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-magenta-50 text-slate-700 border border-slate-200 hover:border-magenta-300 transition font-medium">
+                            <i class="fa-solid fa-clipboard-check text-magenta-600 mr-1"></i> Supervisi
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Edit Guru Modal Handlers
+        function openEditGuruModal(id) {
+            const guru = dataGuru.find(g => g.id === id);
+            if (!guru) return;
+
+            document.getElementById('editGuruId').value = guru.id;
+            document.getElementById('editNamaGuru').value = guru.nama;
+            document.getElementById('editWebsiteGuru').value = guru.website;
+            document.getElementById('editKompetensi').value = guru.kompetensi;
+            document.getElementById('editFilosofi').value = guru.filosofi;
+
+            document.getElementById('editGuruModal').classList.remove('hidden');
+        }
+
+        function closeEditGuruModal() {
+            document.getElementById('editGuruModal').classList.add('hidden');
+        }
+
+        function handleEditGuruSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('editGuruId').value;
+            const index = dataGuru.findIndex(g => g.id === id);
+
+            if (index !== -1) {
+                dataGuru[index].nama = document.getElementById('editNamaGuru').value.trim();
+                dataGuru[index].website = document.getElementById('editWebsiteGuru').value.trim();
+                dataGuru[index].kompetensi = document.getElementById('editKompetensi').value.trim();
+                dataGuru[index].filosofi = document.getElementById('editFilosofi').value.trim();
+
+                saveData();
+                renderDataGuru();
+                closeEditGuruModal();
+                showToast('Berhasil Diperbarui', 'Data guru telah berhasil diperbarui.');
+            }
+        }
+
+        function deleteGuru(id) {
+            if(confirm('Apakah Anda yakin ingin menghapus data guru ini?')) {
+                dataGuru = dataGuru.filter(g => g.id !== id);
+                saveData();
+                renderDataGuru();
+                showToast('Terhapus', 'Data guru telah dihapus.');
+            }
+        }
+
+
+        // Render Observasi Table
+        function renderObservasi() {
+            const tbody = document.getElementById('observasiTableBody');
+            
+            if (dataObservasi.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="py-8 text-center text-slate-400">Belum ada jadwal observasi guru.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = dataObservasi.map(obs => {
+                let badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+                if(obs.status === 'Selesai') badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                if(obs.status === 'Dalam Proses') badgeClass = 'bg-magenta-50 text-magenta-700 border-magenta-200';
+
+                return `
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="py-4 px-6 font-semibold text-slate-900">${obs.guruNama}</td>
+                        <td class="py-4 px-6 text-slate-600 font-mono">${obs.tanggal}</td>
+                        <td class="py-4 px-6">
+                            <a href="${obs.linkWeb}" target="_blank" class="text-magenta-600 hover:underline inline-flex items-center space-x-1 font-semibold">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                <span>Buka Link Observasi</span>
+                            </a>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="px-2.5 py-1 rounded-full border text-[10px] font-bold ${badgeClass}">
+                                ${obs.status}
+                            </span>
+                        </td>
+                        <td class="py-4 px-6 text-right space-x-2">
+                            <button onclick="toggleObsStatus('${obs.id}')" title="Ubah Status" class="p-1.5 rounded-lg bg-slate-100 border border-slate-200 hover:text-magenta-600">
+                                <i class="fa-solid fa-rotate"></i>
+                            </button>
+                            <button onclick="deleteObservasi('${obs.id}')" title="Hapus Jadwal" class="p-1.5 rounded-lg bg-slate-100 border border-slate-200 hover:text-rose-600">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function toggleObsStatus(id) {
+            const item = dataObservasi.find(o => o.id === id);
+            if(item) {
+                if(item.status === 'Terjadwal') item.status = 'Dalam Proses';
+                else if(item.status === 'Dalam Proses') item.status = 'Selesai';
+                else item.status = 'Terjadwal';
+
+                saveData();
+                renderObservasi();
+                renderHomeObservasi();
+                showToast('Status Diperbarui', `Status observasi diubah menjadi ${item.status}.`);
+            }
+        }
+
+        function deleteObservasi(id) {
+            if(confirm('Hapus jadwal observasi ini?')) {
+                dataObservasi = dataObservasi.filter(o => o.id !== id);
+                saveData();
+                renderObservasi();
+                renderHomeObservasi();
+            }
+        }
+
+        function renderHomeObservasi() {
+            const list = document.getElementById('home-observasi-list');
+            if(!list) return;
+
+            if(dataObservasi.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-400 py-2">Belum ada observasi aktif.</p>`;
+                return;
+            }
+
+            list.innerHTML = dataObservasi.slice(0, 3).map(obs => `
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+                    <div>
+                        <div class="font-bold text-slate-900">${obs.guruNama}</div>
+                        <div class="text-[10px] text-slate-500">${obs.tanggal}</div>
+                    </div>
+                    <a href="${obs.linkWeb}" target="_blank" class="p-2 rounded-lg bg-magenta-50 text-magenta-600 hover:bg-magenta-600 hover:text-white transition">
+                        <i class="fa-solid fa-link text-xs"></i>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        // Metrics Counter Update
+        function updateMetrics() {
+            document.getElementById('stat-total-guru').innerText = dataGuru.length;
+            document.getElementById('stat-observasi-selesai').innerText = dataObservasi.length;
+
+            document.getElementById('metric-guru').innerText = dataGuru.length;
+            document.getElementById('metric-web').innerText = dataGuru.filter(g => g.website).length;
+            document.getElementById('metric-observasi').innerText = dataObservasi.length;
+
+            const gasDot = document.getElementById('gasStatusDot');
+            const gasMetric = document.getElementById('metric-gas');
+            
+            if(gasUrl) {
+                gasDot.className = 'w-2 h-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50';
+                gasMetric.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span> Terhubung (Google Sheets)`;
+                gasMetric.className = 'text-xs font-semibold text-emerald-600 mt-1 flex items-center';
+            } else {
+                gasDot.className = 'w-2 h-2 rounded-full bg-amber-400';
+                gasMetric.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span> Lokal (Offline)`;
+                gasMetric.className = 'text-xs font-semibold text-amber-600 mt-1 flex items-center';
+            }
+        }
+
+        // GAS Modals
+        function openGasModal() {
+            document.getElementById('gasUrlInput').value = gasUrl;
+            document.getElementById('gasModal').classList.remove('hidden');
+        }
+        function closeGasModal() {
+            document.getElementById('gasModal').classList.add('hidden');
+        }
+        function saveGasUrl() {
+            gasUrl = document.getElementById('gasUrlInput').value.trim();
+            localStorage.setItem('smk_prajna_gas_url', gasUrl);
+            updateMetrics();
+            closeGasModal();
+            showToast('Google Script Terhubung', 'URL Google Apps Script telah diperbarui.');
+        }
+        function clearGasUrl() {
+            gasUrl = '';
+            localStorage.removeItem('smk_prajna_gas_url');
+            document.getElementById('gasUrlInput').value = '';
+            updateMetrics();
+            closeGasModal();
+            showToast('Koneksi Dihapus', 'Sistem kembali ke mode penyimpanan lokal.');
+        }
+
+        function copyGasCode() {
+            const code = `function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  if (data.action === 'addGuru') {
+    sheet.appendRow([new Date(), data.nama, data.website, data.kompetensi, data.filosofi]);
+    return ContentService.createTextOutput(JSON.stringify({result: 'success'})).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = code;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            showToast('Berhasil Disalin!', 'Kode Google Apps Script telah disalin ke clipboard.');
+        }
+
+        // Observasi Modal
+        function openTambahObservasiModal() {
+            const select = document.getElementById('obsNamaGuru');
+            select.innerHTML = dataGuru.map(g => `<option value="${g.nama}">${g.nama} (${g.kompetensi})</option>`).join('');
+            document.getElementById('observasiModal').classList.remove('hidden');
+        }
+        function closeObservasiModal() {
+            document.getElementById('observasiModal').classList.add('hidden');
+        }
+        function handleObservasiSubmit(e) {
+            e.preventDefault();
+            const guruNama = document.getElementById('obsNamaGuru').value;
+            const tanggal = document.getElementById('obsTanggal').value;
+            const linkWeb = document.getElementById('obsLinkWeb').value.trim();
+            const status = document.getElementById('obsStatus').value;
+
+            dataObservasi.unshift({
+                id: 'obs-' + Date.now(),
+                guruNama,
+                tanggal,
+                linkWeb,
+                status
+            });
+
+            saveData();
+            renderObservasi();
+            renderHomeObservasi();
+            closeObservasiModal();
+            showToast('Observasi Dijadwalkan', 'Jadwal observasi guru baru berhasil dibuat.');
+        }
+
+        function quickScheduleObservasi(guruNama) {
+            switchTab('observasi');
+            openTambahObservasiModal();
+            document.getElementById('obsNamaGuru').value = guruNama;
+        }
+
+        // Filosofi Modal
+        function openFilosofiModal(nama, mapel, filosofi) {
+            document.getElementById('filosofiModalGuru').innerText = nama;
+            document.getElementById('filosofiModalMapel').innerText = mapel;
+            document.getElementById('filosofiModalText').innerText = `"${filosofi}"`;
+            document.getElementById('filosofiModal').classList.remove('hidden');
+        }
+        function closeFilosofiModal() {
+            document.getElementById('filosofiModal').classList.add('hidden');
+        }
+
+        // Toast Handler
+        function showToast(title, msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => { hideToast(); }, 4000);
+        }
+        function hideToast() {
+            document.getElementById('toast').classList.add('hidden');
+        }
+
+        window.onload = function() {
+            renderAppView();
+        };
+    </script>
+</body>
+</html>
